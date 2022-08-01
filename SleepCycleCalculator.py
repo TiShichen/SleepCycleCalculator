@@ -10,8 +10,6 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-import main
-
 
 class Ui_SleepCycleCalculator(object):
     def setupUi(self, SleepCycleCalculator):
@@ -37,14 +35,10 @@ class Ui_SleepCycleCalculator(object):
         self.textEdit.setObjectName("textEdit")
 
         self.retranslateUi(SleepCycleCalculator)
-
         self.resetButton.clicked.connect(self.hourIn.clear) # type: ignore
         self.resetButton.clicked.connect(self.minuteIn.clear) # type: ignore
-
-        upHour = self.calcualteButton.clicked.connect(self.hourIn.copy) # type: ignore
-        upMinute = self.calcualteButton.clicked.connect(self.minuteIn.copy) # type: ignore
-        main.calculateCycle(upHour, upMinute)
-
+        self.calcualteButton.clicked.connect(self.hourIn.copy) # type: ignore
+        self.calcualteButton.clicked.connect(self.minuteIn.copy) # type: ignore
         self.resetButton.clicked.connect(self.textEdit.clear) # type: ignore
         self.textEdit.textChanged.connect(SleepCycleCalculator.accept) # type: ignore
         self.calcualteButton.clicked.connect(SleepCycleCalculator.accept) # type: ignore
@@ -56,4 +50,3 @@ class Ui_SleepCycleCalculator(object):
         self.calcualteButton.setText(_translate("SleepCycleCalculator", "Calculate"))
         self.resetButton.setText(_translate("SleepCycleCalculator", "Reset"))
         self.label.setText(_translate("SleepCycleCalculator", ":"))
-
