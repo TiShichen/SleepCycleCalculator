@@ -60,10 +60,10 @@ def calculateCycle():
     else:
         sleepLength = doubleUpTime + (24 - doubleCurTime)
 
-    lengthHour = int(math.modf(sleepLength)[1])
-    lengthMinute = int(round(math.modf(sleepLength)[0] * 60))
-
-    # print(str(lengthHour) + ":" + str(lengthMinute))
+    # lengthHour = int(math.modf(sleepLength)[1])
+    # lengthMinute = int(round(math.modf(sleepLength)[0] * 60))
+    #
+    # # print(str(lengthHour) + ":" + str(lengthMinute))
 
     # List cycles result
     outList = []
@@ -88,6 +88,8 @@ def calculateCycle():
 
     if (sleepLength - 1.5 * maxCycles) >= 1.35:
         lateUpTime = doubleCurTime + 1.5 * (maxCycles + 1) - 24
+        if lateUpTime < 0:
+            lateUpTime = lateUpTime + 24
         lateUpHour = int(math.modf(lateUpTime)[1])
         lateUpMinute = int(round(math.modf(lateUpTime)[0] * 60))
         outList.append([maxCycles + 1, lateUpHour, lateUpMinute, 0])
@@ -105,6 +107,7 @@ def calculateCycle():
             # print("Sleep at " + str(j[1]) + ":" + str(j[2]) + " for a " + str(j[0]) + " cycle sleep.")
             resultList.append("Sleep at " + str(j[1]) + ":" + str(j[2]) + " for a " + str(j[0]) + " cycle sleep.")
 
+    # Print out result in text box
     for m in resultList:
         result.insert(0.0, m + '\n')
 
@@ -119,27 +122,40 @@ if __name__ == '__main__':
     # Create tkinter GUI
     window = tk.Tk()
     window.title("Sleep Cycle Calculator")  # Window title
-    window.geometry('600x400')  # Window size
+    # window.geometry('600x400')  # Window size
     window["background"] = "#C9C9C9"  # Window background color
     instruction = tk.Label(window, text="Input planned get up time below", fg="black",
                            font=('Times', 12, 'italic'))
     # Create a Label called instruction, set background color, font color, font, size etc.
-    instruction.pack(pady=10)
+    # instruction.pack(pady=10)
+    instruction.grid(row=0, column=1, columnspan=4, pady=20)
+
+    tagHour = tk.Label(window, text="Hour:", justify="right")
+    tagMinute = tk.Label(window, text="Minute:", justify="right")
+
+    tagHour.grid(row=1, column=1, padx=20, )
+    tagMinute.grid(row=1, column=3, padx=20)
 
     hour = tk.Entry(window)
-    hour.pack(padx=10, pady=10)
+    # hour.pack(padx=10, pady=10)
+    hour.grid(row=1, column=2)
 
     minute = tk.Entry(window)
-    minute.pack(padx=10, pady=10)
+    # minute.pack(padx=10, pady=10)
+    minute.grid(row=1, column=4)
 
-    result = tk.Text(window, width=60, height=10)
-    result.pack(pady=10)
+    result = tk.Text(window, height=10)
+    # result.pack(pady=10)
+    result.grid(row=2, column=1, columnspan=4, padx=20, pady=10)
 
-    calButton = tk.Button(window, text="Calculate", command=calculateCycle)
-    resetButton = tk.Button(window, text="Reset", command=resetInputBox)
+    calButton = tk.Button(window, text="Calculate", command=calculateCycle, width=20)
+    resetButton = tk.Button(window, text="Reset", command=resetInputBox, width=20)
 
-    resetButton.pack(side="bottom", pady=10)
-    calButton.pack(side="bottom", pady=10)
+    # resetButton.pack(side="bottom", pady=10)
+    # calButton.pack(side="bottom", pady=10)
+
+    calButton.grid(row=3, column=2, pady=10)
+    resetButton.grid(row=3, column=3, pady=10)
 
     window.mainloop()
 
