@@ -1,6 +1,7 @@
 import logging
 import math
 import datetime
+import sys
 import tkinter as tk
 
 def calculateCycle():
@@ -36,8 +37,6 @@ def calculateCycle():
         hour.delete(0, tk.END)
         minute.delete(0, tk.END)
         return
-
-    # print(str(upHour) + ":" + str(upMinute))
 
     doubleUpTime = float(upHour + (upMinute / 60))
 
@@ -101,13 +100,11 @@ def calculateCycle():
 
     for j in outList:
         if len(j) == 4:
-            # print("Sleep now and get up at " + str(j[1]) + ":" + str(j[2]) + " for a " + str(j[0]) + " cycle sleep.")
             resultList.append(
-                "Sleep now and get up at " + str(j[1]) + ":" + str('%02d' % j[2]) + " for a " + str(j[0]) + "cycle "
+                "Sleep now and get up at " + str(j[1]) + ":" + str('%02d' % j[2]) + " for a " + str(j[0]) + " cycle "
                                                                                                             "sleep.")
         else:
-            # print("Sleep at " + str(j[1]) + ":" + str(j[2]) + " for a " + str(j[0]) + " cycle sleep.")
-            resultList.append("Sleep at " + str(j[1]) + ":" + str('%02d' % j[2]) + " for a " + str(j[0]) + "cycle "
+            resultList.append("Sleep at " + str(j[1]) + ":" + str('%02d' % j[2]) + " for a " + str(j[0]) + " cycle "
                                                                                                            "sleep.")
 
     # Print out result in text box
@@ -122,6 +119,7 @@ def resetInputBox():
 
 
 if __name__ == '__main__':
+    count = 1
     # Create tkinter GUI
     window = tk.Tk()
     window.title("Sleep Cycle Calculator")  # Window title
@@ -162,5 +160,3 @@ if __name__ == '__main__':
 
     # Show the GUI
     window.mainloop()
-
-    calculateCycle()
