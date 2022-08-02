@@ -9,6 +9,14 @@ def calculateCycle():
     upHour = hour.get()
     upMinute = minute.get()
 
+    if len(upHour) == 0 or len(upMinute) == 0:
+        result.insert(0.0, 'Please input the time you plan to get up')
+        return
+
+    if not upHour.isdigit() or not upMinute.isdigit():
+        result.insert(0.0, 'Please input time in digits')
+        return
+
     upHour = int(upHour)
     upMinute = int(upMinute)
 
@@ -57,7 +65,7 @@ def calculateCycle():
 
     # print(str(lengthHour) + ":" + str(lengthMinute))
 
-    # List cycles
+    # List cycles result
     outList = []
     maxCycles = int(sleepLength / 1.5)
 
@@ -97,8 +105,6 @@ def calculateCycle():
             # print("Sleep at " + str(j[1]) + ":" + str(j[2]) + " for a " + str(j[0]) + " cycle sleep.")
             resultList.append("Sleep at " + str(j[1]) + ":" + str(j[2]) + " for a " + str(j[0]) + " cycle sleep.")
 
-    # print(resultList)
-
     for m in resultList:
         result.insert(0.0, m + '\n')
 
@@ -109,39 +115,32 @@ def resetInputBox():
     result.delete(0.0, tk.END)
 
 
-# Create tkinter GUI
-window = tk.Tk()
-window.title("Sleep Cycle Calculator")  # Window title
-window.geometry('600x400')  # Window size
-window["background"] = "#C9C9C9"  # Window background color
-instruction = tk.Label(window, text="Input planned get up time below", fg="black",
-                       font=('Times', 12, 'italic'))
-# Create a Label called instruction, set background color, font color, font, size etc.
-instruction.pack(pady=10)  # Put the Label inside the window
-
-hour = tk.Entry(window)
-hour.pack(padx=10, pady=10)
-
-minute = tk.Entry(window)
-minute.pack(padx=10, pady=10)
-
-result = tk.Text(window, width=60, height=10)
-result.pack(pady=10)
-
-calButton = tk.Button(window, text="Calculate", command=calculateCycle)
-resetButton = tk.Button(window, text="Reset", command=resetInputBox)
-
-resetButton.pack(side="bottom", pady=10)
-calButton.pack(side="bottom", pady=10)
-
-
-window.mainloop()
-
 if __name__ == '__main__':
-    # currentTime = datetime.datetime.now()
-    # curHour = currentTime.strftime('%H')
-    # curMinute = currentTime.strftime('%M')
+    # Create tkinter GUI
+    window = tk.Tk()
+    window.title("Sleep Cycle Calculator")  # Window title
+    window.geometry('600x400')  # Window size
+    window["background"] = "#C9C9C9"  # Window background color
+    instruction = tk.Label(window, text="Input planned get up time below", fg="black",
+                           font=('Times', 12, 'italic'))
+    # Create a Label called instruction, set background color, font color, font, size etc.
+    instruction.pack(pady=10)
 
-    # print(curHour + ":" + curMinute)
+    hour = tk.Entry(window)
+    hour.pack(padx=10, pady=10)
+
+    minute = tk.Entry(window)
+    minute.pack(padx=10, pady=10)
+
+    result = tk.Text(window, width=60, height=10)
+    result.pack(pady=10)
+
+    calButton = tk.Button(window, text="Calculate", command=calculateCycle)
+    resetButton = tk.Button(window, text="Reset", command=resetInputBox)
+
+    resetButton.pack(side="bottom", pady=10)
+    calButton.pack(side="bottom", pady=10)
+
+    window.mainloop()
 
     calculateCycle()
