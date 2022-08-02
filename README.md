@@ -1,8 +1,12 @@
-# sleepCycleCalculator
+# SleepCycleCalculator.exe
+* Calculate an appropriate time to go to bed based on your planned time to get up
+* Based on natural human sleep cycle length(1.5-hour) so that you can get full sleep cycles that makes you fell fresh and sharp in the morning
+* Gives an extra result if you can sleep for one more full cycle by falling asleep asap and getting up a little bit later (no more than 9 minutes.) This result will be automatically given if your planned time to get up satisfies the condition.
+
+
 * GUI built with tkinter.
 * Built into .exe file with pyinstaller.
-* Calculates the time that you need to fall asleep in order to get full sleep cycles.
-* Gives an extra result if you can sleep for one more full cycle by getting up a little bit later (no more that 9 minutes which is 1/10 of a full sleep cycle) and sleep right now.
+
 
 ## How to use:
 1. Input planned get up hour in the first text box
