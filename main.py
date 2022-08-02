@@ -1,7 +1,5 @@
-import logging
 import math
 import datetime
-import sys
 import tkinter as tk
 
 def calculateCycle():
