@@ -1,3 +1,4 @@
+import logging
 import math
 import datetime
 import tkinter as tk
@@ -91,7 +92,7 @@ def calculateCycle():
         if lateUpTime < 0:
             lateUpTime = lateUpTime + 24
         lateUpHour = int(math.modf(lateUpTime)[1])
-        lateUpMinute = int(round(math.modf(lateUpTime)[0] * 60))
+        lateUpMinute = int(math.modf(lateUpTime)[0] * 60)
         outList.append([maxCycles + 1, lateUpHour, lateUpMinute, 0])
 
     # print(outList)
@@ -102,10 +103,12 @@ def calculateCycle():
         if len(j) == 4:
             # print("Sleep now and get up at " + str(j[1]) + ":" + str(j[2]) + " for a " + str(j[0]) + " cycle sleep.")
             resultList.append(
-                "Sleep now and get up at " + str(j[1]) + ":" + str(j[2]) + " for a " + str(j[0]) + " cycle sleep.")
+                "Sleep now and get up at " + str(j[1]) + ":" + str('%02d' % j[2]) + " for a " + str(j[0]) + "cycle "
+                                                                                                            "sleep.")
         else:
             # print("Sleep at " + str(j[1]) + ":" + str(j[2]) + " for a " + str(j[0]) + " cycle sleep.")
-            resultList.append("Sleep at " + str(j[1]) + ":" + str(j[2]) + " for a " + str(j[0]) + " cycle sleep.")
+            resultList.append("Sleep at " + str(j[1]) + ":" + str('%02d' % j[2]) + " for a " + str(j[0]) + "cycle "
+                                                                                                           "sleep.")
 
     # Print out result in text box
     for m in resultList:
@@ -127,36 +130,37 @@ if __name__ == '__main__':
     instruction = tk.Label(window, text="Input planned get up time below", fg="black",
                            font=('Times', 12, 'italic'))
     # Create a Label called instruction, set background color, font color, font, size etc.
-    # instruction.pack(pady=10)
-    instruction.grid(row=0, column=1, columnspan=4, pady=20)
 
+    # Create labels indicating what to input
     tagHour = tk.Label(window, text="Hour:", justify="right")
     tagMinute = tk.Label(window, text="Minute:", justify="right")
+
+    # Create entry boxes for time inputs
+    hour = tk.Entry(window)
+    minute = tk.Entry(window)
+
+    # Create text box for printing results and error messages
+    result = tk.Text(window, height=10)
+
+    # Creating calculate and reset button
+    calButton = tk.Button(window, text="Calculate", command=calculateCycle, width=20)
+    resetButton = tk.Button(window, text="Reset", command=resetInputBox, width=20)
+
+    # Place all created elements using the grid feature
+    instruction.grid(row=0, column=1, columnspan=4, pady=20)
 
     tagHour.grid(row=1, column=1, padx=20, )
     tagMinute.grid(row=1, column=3, padx=20)
 
-    hour = tk.Entry(window)
-    # hour.pack(padx=10, pady=10)
     hour.grid(row=1, column=2)
-
-    minute = tk.Entry(window)
-    # minute.pack(padx=10, pady=10)
     minute.grid(row=1, column=4)
 
-    result = tk.Text(window, height=10)
-    # result.pack(pady=10)
     result.grid(row=2, column=1, columnspan=4, padx=20, pady=10)
-
-    calButton = tk.Button(window, text="Calculate", command=calculateCycle, width=20)
-    resetButton = tk.Button(window, text="Reset", command=resetInputBox, width=20)
-
-    # resetButton.pack(side="bottom", pady=10)
-    # calButton.pack(side="bottom", pady=10)
 
     calButton.grid(row=3, column=2, pady=10)
     resetButton.grid(row=3, column=3, pady=10)
 
+    # Show the GUI
     window.mainloop()
 
     calculateCycle()
